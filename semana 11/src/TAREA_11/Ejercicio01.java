@@ -2,21 +2,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Semana11;
+package TAREA_11;
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author chris
+ * @author ACER NITRO 5
  */
-public class Ejer01 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Ejer01
-     */
-    public Ejer01() {
-        initComponents();
+public class Ejercicio01 extends javax.swing.JFrame {
+    ArrayList<Integer> datos = new ArrayList<>();
+    int recursivo(int i, int x){
+        if (i==0){
+            return x;
+        }else{
+            return recursivo(--i, x+datos.get(i));
+        }
     }
-
+    int iterativo(int i, int x){
+        while (i!=0){
+            x += datos.get(--i);
+        }
+        return x;
+    }
+    
+    public Ejercicio01() {
+        initComponents();
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,24 +42,28 @@ public class Ejer01 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
+        jTextArea1.setText("{}");
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 350, -1));
@@ -57,8 +77,14 @@ public class Ejer01 extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 110, -1));
 
         jButton3.setText("Realizar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 110, -1));
 
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Recursivo");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,22 +95,19 @@ public class Ejer01 extends javax.swing.JFrame {
 
         jRadioButton2.setText("Iterativo");
         getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 90, -1));
 
         jLabel1.setText("Numero Elementos");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Tamaño", "Tipo", "Inicio", "Fin", "Resultado"
+                "Tamaño", "Tipo", "Inicio", "Fin", "Resultado tiempo", "Resultado suma"
             }
         ));
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 480, 190));
@@ -96,17 +119,55 @@ public class Ejer01 extends javax.swing.JFrame {
         jLabel3.setText("SUMA DE ELEMENTOS DE UN VECTOR");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        getContentPane().add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 80, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        datos.clear();
+        jTextArea1.setText("");
+        Random random = new Random();
+        String strDatos = "{";
+        int cant = (Integer)jSpinner1.getValue();
+        for (int i=0; i<cant; i++){
+            if (i!=0) strDatos+=", ";
+            int valor = random.nextInt(100);
+            datos.add(valor);
+            strDatos += Integer.toString(valor);
+        }
+        strDatos += "}";
+        jTextArea1.setText(strDatos);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int resultado=0;
+        String tipo;
+        long inicio, fin;
+        if (jRadioButton1.isSelected()){
+            tipo = "Recursivo";
+            inicio = System.nanoTime();
+            resultado = recursivo(datos.size(), resultado);
+            fin = System.nanoTime();
+        }else{
+            tipo = "Iterativo";
+            inicio = System.nanoTime();
+            resultado = iterativo(datos.size(), resultado);
+            fin = System.nanoTime();
+        }
+        String data[] = {Integer.toString(datos.size()), tipo, Long.toString(inicio), Long.toString(fin), Long.toString(fin-inicio), Integer.toString(resultado)};
+        DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+        tblModel.addRow(data);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,25 +186,27 @@ public class Ejer01 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ejer01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ejercicio01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ejer01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ejercicio01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ejer01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ejercicio01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ejer01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ejercicio01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ejer01().setVisible(true);
+                new Ejercicio01().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -153,8 +216,8 @@ public class Ejer01 extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
